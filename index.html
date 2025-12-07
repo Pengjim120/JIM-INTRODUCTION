@@ -556,9 +556,9 @@
   <div class="container">
     <!-- 個人資訊區塊 -->
     <section id="profile" class="profile">
-      <div class="profile-img">
-        <img src="頭像.jpg" alt="個人照片">
-      </div>
+      <div class="profile-img" data-image="頭像.jpg">
+          <img src="頭像.jpg" alt="個人照片">
+        </div>
       <h1>李朋駿</h1>
       <p>輔仁大學醫資學程 | 機械人愛好者 | 喜歡排球</p>
       <div class="contact-info">
@@ -597,7 +597,7 @@
         </div>
 
         <div class="skill-card">
-        
+          
           <div class="progress-bar">
             <div class="progress-fill" style="width: 0%; animation-delay: 0.8s;" data-width="85%"></div>
           </div>
@@ -610,14 +610,6 @@
             <div class="progress-fill" style="width: 0%; animation-delay: 1s;" data-width="70%"></div>
           </div>
           <div class="skill-percentage">70%</div>
-        </div>
-        
-        <div class="skill-card">
-          <div class="skill-name">組織能力</div>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 0%; animation-delay: 1.2s;" data-width="80%"></div>
-          </div>
-          <div class="skill-percentage">80%</div>
         </div>
       </div>
     </section>
@@ -788,8 +780,8 @@
         lbImg.src = '';
       }
 
-      // click handlers for project images
-      document.querySelectorAll('.project-image').forEach(el => {
+      // click handlers for images with data-image (works for projects and avatar)
+      document.querySelectorAll('[data-image], .project-image').forEach(el => {
         el.style.cursor = 'zoom-in';
         el.addEventListener('click', () => {
           const data = el.getAttribute('data-image');
