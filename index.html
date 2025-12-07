@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人作品集 - Jim</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    /* 導航欄 */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: #667eea;
+    }
+
+    /* 容器 */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    section {
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+      padding: 3rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      color: #667eea;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      border-bottom: 3px solid #764ba2;
+      padding-bottom: 1rem;
+    }
+
+    /* 個人資訊區塊 */
+    .profile {
+      text-align: center;
+    }
+
+    .profile-img {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      overflow: hidden;
+      border: 5px solid #667eea;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.05);
+    }
+
+    .profile-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .profile p {
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .contact-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    /* 技能展示區 */
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-card {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .skill-card:hover {
+      border-color: #667eea;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .skill-name {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #333;
+      font-size: 1.1rem;
+    }
+
+    .progress-bar {
+      height: 12px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+      transition: width 1s ease-out;
+    }
+
+    .skill-percentage {
+      text-align: right;
+      color: #667eea;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* 時間軸 */
+    .timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-left: 0;
+      margin-right: auto;
+      width: 45%;
+      text-align: right;
+      padding-right: 4%;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-left: auto;
+      margin-right: 0;
+      width: 45%;
+      text-align: left;
+      padding-left: 4%;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border: 3px solid #667eea;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .timeline-content {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .timeline-date {
+      color: #667eea;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .timeline-title {
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .timeline-description {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    /* 作品集卡片 */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(102, 126, 234, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover .project-image::after {
+      opacity: 1;
+    }
+
+    .project-content {
+      padding: 2rem;
+    }
+
+    .project-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-description {
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .project-role {
+      color: #667eea;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .project-link {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .project-link:hover {
+      transform: scale(1.05);
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 1rem;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      section {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      .timeline::before {
+        left: 30px;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        width: 100%;
+        margin-left: 80px;
+        margin-right: 0;
+        text-align: left;
+        padding-left: 2rem;
+        padding-right: 1.5rem;
+      }
+
+      .timeline-dot {
+        left: 30px;
+      }
+
+      .skills-container {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-info {
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .contact-link {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        padding: 0.8rem 1rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      .profile h1 {
+        font-size: 1.8rem;
+      }
+
+      .profile-img {
+        width: 200px;
+        height: 200px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .timeline-item {
+        margin-bottom: 2rem;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        width: 100%;
+        margin-left: 60px;
+        padding-left: 1.5rem;
+      }
+
+      .timeline-dot {
+        left: 20px;
+      }
+
+      .timeline::before {
+        left: 20px;
+      }
+
+      .project-image {
+        height: 150px;
+        font-size: 2rem;
+      }
+
+      .contact-link {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 導航欄 -->
+  <nav>
+    <ul>
+      <li><a href="#profile">個人資訊</a></li>
+      <li><a href="#skills">技能展示</a></li>
+      <li><a href="#experience">經歷時間軸</a></li>
+      <li><a href="#projects">作品集</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <!-- 個人資訊區塊 -->
+    <section id="profile" class="profile">
+      <div class="profile-img">
+        <img src="頭像.jpg" alt="個人照片">
+      </div>
+      <h1>李朋駿</h1>
+      <p>輔仁大學醫資學程 | 機械人愛好者 | 喜歡排球</p>
+      <div class="contact-info">
+        <a href="mailto:happyjimlee0120@gmail.com" class="contact-link">📧 happyjimlee0120@gmail.com</a>
+        <a href="tel:0984259688" class="contact-link">☎️ 0984259688</a>
+        <a href="https://instagram.com/jim.0120_" target="_blank" class="contact-link">📸 jim.0120_</a>
+      </div>
+    </section>
+
+    <!-- 技能展示區 -->
+    <section id="skills">
+      <h2>技能展示</h2>
+      <div class="skills-container">
+        <div class="skill-card">
+          <div class="skill-name">社交能力</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%; animation-delay: 0.2s;" data-width="75%"></div>
+          </div>
+          <div class="skill-percentage">75%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-name">溝通能力</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%; animation-delay: 0.4s;" data-width="70%"></div>
+          </div>
+          <div class="skill-percentage">70%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-name">學習能力</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%; animation-delay: 0.6s;" data-width="80%"></div>
+          </div>
+          <div class="skill-percentage">80%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-name">運動能力</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%; animation-delay: 0.8s;" data-width="85%"></div>
+          </div>
+          <div class="skill-percentage">85%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-name">創作能力</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%; animation-delay: 1s;" data-width="70%"></div>
+          </div>
+          <div class="skill-percentage">70%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 經歷時間軸 -->
+    <section id="experience">
+      <h2>經歷時間軸</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2019年9月 - 2022年6月</div>
+            <div class="timeline-title">國中 | 桃園市立建國國中</div>
+            <div class="timeline-description">就讀桃園建國國中，積極準備課業，以考到好的公立高中為目標</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2022年9月 - 2025年6月</div>
+            <div class="timeline-title">高中 | 桃園市立永豐高中</div>
+            <div class="timeline-description">就讀桃園永豐高中，高二選擇自然組，以考取資訊或工程學系為目標</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2025年7月 - 2025年8月</div>
+            <div class="timeline-title">暑期打工 | ABC-Mart</div>
+            <div class="timeline-description">高中畢業後到ABC-Mart打工實習，從賣鞋中汲取社會經驗，體驗服務業的辛苦</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2025年9月 - 至今</div>
+            <div class="timeline-title">大學 | 輔仁大學醫資學程</div>
+            <div class="timeline-description">成功考上輔仁大學醫資學程，在課業及社交方面持續努力，增進自身實力</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 作品集 -->
+    <section id="projects">
+      <h2>作品集展示</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image" style="background: url('紙杯奈米碳.jpg') center/cover no-repeat;"></div>
+          <div class="project-content">
+            <div class="project-title">紙杯奈米碳</div>
+            <div class="project-description">觀察燒紙杯產生的黑色物質有無碳的特性，探索與蓮葉效應的關聯。核心學習是控制紙杯的加熱時間和溫度的重要性。</div>
+            <div class="project-role">角色: 實驗設計、數據分析</div>
+            <details style="margin-top: 1rem; cursor: pointer;">
+              <summary style="color: #667eea; font-weight: 600; margin-bottom: 0.8rem;">📌 詳細心得</summary>
+              <div style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-top: 0.8rem;">
+                <p>在操作實驗過程中，我認為最重要的是控制紙杯的加熱時間和溫度。如果紙杯加熱太久，可能會造成破損，但時間過短又會造成碳層表面不夠厚而無法呈現疏水效應。</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image" style="background: url('貓狗辨識器.png') center/cover no-repeat;"></div>
+          <div class="project-content">
+            <div class="project-title">貓狗辨識器</div>
+            <div class="project-description">結合Python和Google Colab，撰寫貓狗辨識器程式，學習影像辨識的概念與深度學習應用。</div>
+            <div class="project-role">角色: 程式開發、模型訓練</div>
+            <details style="margin-top: 1rem; cursor: pointer;">
+              <summary style="color: #667eea; font-weight: 600; margin-bottom: 0.8rem;">📌 詳細心得</summary>
+              <div style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-top: 0.8rem;">
+                <p>• 第一次接觸Python，一開始完全沒有概念，常常找老師討論，未來有想要自學Python的想法</p>
+                <p>• 經常遇到程式碼拼錯的問題，發現了自己粗心的缺點，因此養成了逐一檢查程式碼字元的習慣</p>
+                <p>• 發現模型訓練時間很長影響效率，後來發現是GPU沒有更改到T4，修改完成後程式流程順暢許多</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image" style="background: url('坦克機器人.jpg') center top/cover no-repeat;"></div>
+          <div class="project-content">
+            <div class="project-title">坦克機器人</div>
+            <div class="project-description">親手組裝機械臂坦克車，了解機器人的運作方式，學習團隊合作和實作能力。</div>
+            <div class="project-role">角色: 機械組裝、程式控制、團隊協作</div>
+            <details style="margin-top: 1rem; cursor: pointer;">
+              <summary style="color: #667eea; font-weight: 600; margin-bottom: 0.8rem;">📌 詳細心得</summary>
+              <div style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-top: 0.8rem;">
+                <p>• 組裝過程中做錯一個步驟會導致進度延後，甚至前功盡棄，體會到細心的重要性</p>
+                <p>• 在安裝機械手臂支架時，沒看清楚說明書，導致手臂長短不一，只好全部重新組裝</p>
+                <p>• 組裝與測試過程中遇到機械爪夾不緊、馬達運作不穩、程式沒反應等問題，通過團隊合作逐一解決</p>
+                <p>• 學到了問題解決能力和團隊溝通的重要性</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // 平滑捲動
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+          targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // 進度條動畫
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: '0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const progressFills = entry.target.querySelectorAll('.progress-fill');
+          progressFills.forEach(fill => {
+            const width = fill.getAttribute('data-width');
+            fill.style.width = width;
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection) {
+      observer.observe(skillsSection);
+    }
+  </script>
+</body>
+</html>
