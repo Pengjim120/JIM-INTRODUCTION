@@ -625,7 +625,7 @@
         </div>
 
         <div class="skill-card">
-          
+          <div class="skill-name">運動能力</div>
           <div class="progress-bar">
             <div class="progress-fill" style="width: 0%; animation-delay: 0.8s;" data-width="85%"></div>
           </div>
@@ -641,18 +641,6 @@
         </div>
       </div>
 
-      <!-- 標籤雲（Tag Cloud） -->
-      <div class="tag-cloud" aria-label="技能標籤雲">
-        <div class="tag">Python</div>
-        <div class="tag">影像辨識</div>
-        <div class="tag">實驗設計</div>
-        <div class="tag">團隊合作</div>
-        <div class="tag">服務業經驗</div>
-        <div class="tag">問題解決</div>
-        <div class="tag">創意思考</div>
-        <div class="tag">學習能力</div>
-      </div>
-    </section>
 
     <!-- 經歷時間軸 -->
     <section id="experience">
@@ -793,6 +781,16 @@
     if (skillsSection) {
       observer.observe(skillsSection);
     }
+
+    // Fallback: 確保進度條在某些瀏覽器/情況下仍會顯示（立即嘗試填滿）
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.progress-fill').forEach(fill => {
+          const w = fill.getAttribute('data-width');
+          if (w) fill.style.width = w;
+        });
+      }, 120);
+    });
 
     // Lightbox for project images
     (function(){
